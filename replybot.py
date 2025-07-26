@@ -1,13 +1,13 @@
 import requests
 import streamlit as st
 
-# ---------- CONFIG ----------
+
 API_KEY = "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"  
 MODEL = "deepseek/deepseek-r1" 
 
 st.set_page_config(page_title="Smart Reply Generator", page_icon="💬", layout="centered")
 
-# ---------- STYLING ----------
+#styling
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -88,7 +88,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ---------- UI ----------
+
 st.markdown("<div class='title'>🧠 Smart Reply Generator</div>", unsafe_allow_html=True)
 st.markdown("### 💌 Paste the message you received:")
 ip = st.text_area("", placeholder="e.g. hey wyd 👀")
@@ -97,7 +97,7 @@ tone = st.selectbox("🎭 Choose the tone of your reply:", ["Funny", "Flirty", "
 
 st.markdown("---")
 
-# ---------- Prompt Builder ----------
+# prompt
 def build_prompt(tone, message):
     if tone == "Funny":
         return f"Reply in a funny and witty way to: {message}"
@@ -110,7 +110,7 @@ def build_prompt(tone, message):
     else:  # Normal
         return f"Reply in a casual, normal way to: {message}"
 
-# ---------- OpenRouter API ----------
+# api
 def generate_reply(prompt):
     headers = {
         "Authorization": f"Bearer {API_KEY}",
@@ -133,7 +133,7 @@ def generate_reply(prompt):
     else:
         return f"❌ Error {response.status_code}: {response.text}"
 
-# ---------- Run Generator ----------
+
 if st.button("✨ Generate Smart Reply") and ip.strip():
     with st.spinner("Generating a brilliant reply..."):
         prompt = build_prompt(tone, ip)
@@ -141,6 +141,6 @@ if st.button("✨ Generate Smart Reply") and ip.strip():
         st.success("Here’s your AI-generated reply:")
         st.markdown(f"```{reply}```")
 
-# ---------- Footer ----------
+
 st.markdown("<div class='footer'>Made with 💖 using OpenRouter & Streamlit</div>", unsafe_allow_html=True)
 
